@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFBDA"
+    android:fillViewport="true"
+    tools:context=".MainActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="5dp">
+
+        <!-- Vertical na esquerda-->
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guidelineStart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="20dp" />
+
+        <!-- Vertical na direita -->
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guidelineEnd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_end="20dp" />
+
+        <!-- Saudação -->
+        <TextView
+            android:id="@+id/txtOlaUsuario"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Olá, Usuário!"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:textColor="#000"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="@id/guidelineStart"
+            app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
+            android:layout_marginTop="10dp" />
+
+        <!-- Campo de valor -->
+        <LinearLayout
+            android:id="@+id/box_valor"
+            android:layout_width="0dp"
+            android:layout_height="100dp"
+            android:orientation="vertical"
+            android:background="@drawable/borda_arredondada"
+            android:elevation="4dp"
+            android:padding="16dp"
+            app:layout_constraintTop_toBottomOf="@id/txtOlaUsuario"
+            app:layout_constraintStart_toStartOf="@id/guidelineStart"
+            app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
+            android:layout_marginTop="16dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Qual valor você ganhou ou gastou hoje?"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:layout_marginBottom="8dp" />
+
+            <EditText
+                android:id="@+id/editTextValor"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Digite Aqui"
+                android:inputType="numberDecimal"
+                android:textSize="13sp"/>
+        </LinearLayout>
+
+        <!-- Campo de Descrição -->
+        <EditText
+            android:id="@+id/editTextDescricao"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:textSize="12dp"
+            android:hint="Informe aqui a descrição"
+            android:inputType="text"
+            android:background="@drawable/borda_arredondada"
+            android:padding="12dp"
+            app:layout_constraintTop_toBottomOf="@id/box_valor"
+            app:layout_constraintStart_toStartOf="@id/guidelineStart"
+            app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
+            android:layout_marginTop="10dp" />
+
+        <!-- Botões Gasto/Ganho -->
+        <RadioGroup
+            android:id="@+id/radioGroup"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:orientation="horizontal"
+            android:background="@drawable/borda_amarela"
+            android:padding="4dp"
+            app:layout_constraintTop_toBottomOf="@id/editTextDescricao"
+            app:layout_constraintStart_toStartOf="@id/guidelineStart"
+            app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
+            android:layout_marginTop="10dp">
+
+            <RadioButton
+                android:id="@+id/rbGasto"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:button="@null"
+                android:background="@drawable/botao_selecionado"
+                android:text="Gasto"
+                android:gravity="center"
+                android:layout_marginRight="20dp"
+                android:textColor="#000" />
+
+            <RadioButton
+                android:id="@+id/rbGanho"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:button="@null"
+                android:background="@drawable/botao_selecionado"
+                android:text="Ganho"
+                android:gravity="center"
+                android:textColor="#000" />
+        </RadioGroup>
+
+        <!-- Campo de data -->
+        <EditText
+            android:id="@+id/editTextData"
+            android:layout_width="0dp"
+            android:layout_height="45dp"
+            android:textSize="15dp"
+            android:hint="mm/dd/yyyy"
+            android:inputType="date"
+            android:background="@drawable/borda_arredondada"
+            android:padding="12dp"
+            app:layout_constraintTop_toBottomOf="@id/radioGroup"
+            app:layout_constraintStart_toStartOf="@id/guidelineStart"
+            app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
+            android:layout_marginTop="5dp" />
+
+        <!-- Spinner Categoria -->
+        <Spinner
+            android:id="@+id/spinnerCategoriaGeral"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            app:layout_constraintTop_toBottomOf="@id/editTextData"
+            app:layout_constraintStart_toStartOf="@id/guidelineStart"
+            app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/borda_arredondada"
+            android:padding="10dp"/>
+        <Spinner
+            android:id="@+id/spinnerCategoriaPeriodoPag"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            app:layout_constraintTop_toBottomOf="@id/spinnerCategoriaGeral"
+            app:layout_constraintStart_toStartOf="@id/guidelineStart"
+            app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/borda_arredondada"
+            android:padding="10dp"/>
+        <Spinner
+            android:id="@+id/spinnerCategoriaFormaPag"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            app:layout_constraintTop_toBottomOf="@id/spinnerCategoriaPeriodoPag"
+            app:layout_constraintStart_toStartOf="@id/guidelineStart"
+            app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/borda_arredondada"
+            android:padding="10dp"/>
+
+        <!-- Botão Acessar-->
+        <Button
+            android:id="@+id/btnConfirmar"
+            android:layout_width="300dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="88dp"
+            android:background="@drawable/botao_amarelo"
+            android:text="Confirmar"
+            app:barrierDirection="bottom"
+            app:layout_constraintTop_toBottomOf="@id/spinnerCategoriaFormaPag"
+            app:layout_constraintStart_toStartOf="@id/guidelineStart"
+            app:layout_constraintEnd_toEndOf="@id/guidelineEnd"/>
+
+        <!-- Botão Acessar-->
+        <Button
+            android:id="@+id/btnAcessar"
+            android:layout_width="300dp"
+            android:layout_height="40dp"
+            android:text="Acessar"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="24dp"
+            android:background="@drawable/botao_amarelo"
+            app:layout_constraintTop_toBottomOf="@id/btnConfirmar"
+            app:layout_constraintStart_toStartOf="@id/guidelineStart"
+            app:layout_constraintEnd_toEndOf="@id/guidelineEnd"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

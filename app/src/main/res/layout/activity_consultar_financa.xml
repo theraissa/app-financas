@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFBDA"
+    android:fillViewport="true"
+    tools:context=".ConsultarFinanca">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/ConsultarFinanca"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="24dp">
+    <!-- Vertical na esquerda-->
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineStart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="20dp" />
+
+    <!-- Vertical na direita -->
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineEnd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="20dp" />
+
+
+        <!-- Spinner Categoria -->
+        <Spinner
+            android:id="@+id/spinnerCategoriaGeral"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            app:layout_constraintStart_toStartOf="@id/guidelineStart"
+            app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/borda_arredondada"
+            android:padding="10dp"/>
+        <Spinner
+            android:id="@+id/spinnerCategoriaPeriodoPag"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            app:layout_constraintTop_toBottomOf="@id/spinnerCategoriaGeral"
+            app:layout_constraintStart_toStartOf="@id/guidelineStart"
+            app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/borda_arredondada"
+            android:padding="10dp"/>
+        <Spinner
+            android:id="@+id/spinnerCategoriaFormaPag"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            app:layout_constraintTop_toBottomOf="@id/spinnerCategoriaPeriodoPag"
+            app:layout_constraintStart_toStartOf="@id/guidelineStart"
+            app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/borda_arredondada"
+            android:padding="10dp"/>
+
+        <LinearLayout
+            android:id="@+id/linearLayoutDatas"
+            android:layout_width="0dp"
+            android:layout_height="45dp"
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp"
+            app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
+            app:layout_constraintStart_toStartOf="@id/guidelineStart"
+            app:layout_constraintTop_toBottomOf="@id/spinnerCategoriaFormaPag">
+
+            <!-- Campo de data -->
+            <EditText
+                android:id="@+id/editTextDataInicial"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="5dp"
+                android:background="@drawable/borda_arredondada"
+                android:hint="mm/dd/yyyy"
+                android:inputType="date"
+                android:padding="12dp"
+                android:textSize="15dp" />
+
+            <EditText
+                android:id="@+id/editTextDataFinal"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:background="@drawable/borda_arredondada"
+                android:hint="mm/dd/yyyy"
+                android:inputType="date"
+                android:padding="12dp"
+                android:textSize="15dp" />
+        </LinearLayout>
+
+        <RadioGroup
+            android:id="@+id/radioGroup"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:orientation="horizontal"
+            android:background="@drawable/borda_amarela"
+            android:padding="4dp"
+            android:layout_marginTop="10dp"
+            app:layout_constraintTop_toBottomOf="@id/linearLayoutDatas"
+            app:layout_constraintStart_toStartOf="@id/guidelineStart"
+            app:layout_constraintEnd_toEndOf="@id/guidelineEnd">
+
+            <RadioButton
+                android:id="@+id/rbGasto"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:button="@null"
+                android:background="@drawable/botao_selecionado"
+                android:text="Gasto"
+                android:gravity="center"
+                android:layout_marginRight="20dp"
+                android:textColor="#000" />
+
+            <RadioButton
+                android:id="@+id/rbGanho"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:button="@null"
+                android:background="@drawable/botao_selecionado"
+                android:text="Ganho"
+                android:gravity="center"
+                android:textColor="#000" />
+        </RadioGroup>
+
+        <!-- Labels (Categorias selecionáveis, por exemplo) -->
+        <LinearLayout
+            android:id="@+id/filtro"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:gravity="center"
+            app:layout_constraintTop_toBottomOf="@id/radioGroup"
+            app:layout_constraintStart_toStartOf="@id/guidelineStart"
+            app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
+            android:orientation="horizontal">
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="7dp"
+                android:background="@drawable/borda_filtro"
+                android:text="Label" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="7dp"
+                android:background="@drawable/borda_filtro"
+                android:text="Label" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="7dp"
+                android:background="@drawable/borda_filtro"
+                android:text="Label" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="7dp"
+                android:background="@drawable/borda_filtro"
+                android:text="Label" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayoutValores"
+            android:layout_width="0dp"
+            android:layout_height="300dp"
+            app:layout_constraintTop_toBottomOf="@id/filtro"
+            app:layout_constraintStart_toStartOf="@id/guidelineStart"
+            app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
+            android:orientation="horizontal">
+
+        </LinearLayout>
+        <!-- Soma Total -->
+        <TextView
+            android:id="@+id/somaTotal"
+            android:layout_width="0dp"
+            android:layout_height="25dp"
+            android:text="Soma Total: R$"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:layout_margin="10dp"
+            app:layout_constraintTop_toBottomOf="@id/linearLayoutValores"
+            app:layout_constraintStart_toStartOf="@id/guidelineStart"
+            app:layout_constraintEnd_toEndOf="@id/guidelineEnd"/>
+
+        <!-- Menu inferior -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:background="@drawable/botao_amarelo"
+            android:padding="5dp"
+            android:layout_marginTop="5dp"
+            app:layout_constraintTop_toBottomOf="@id/somaTotal"
+            app:layout_constraintStart_toStartOf="@id/guidelineStart"
+            app:layout_constraintEnd_toEndOf="@id/guidelineEnd">
+
+            <Button
+                android:id="@+id/btnConsultar"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/botao_menu_inferior"
+                android:text="Consultar"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/btnConfigurar"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/botao_menu_inferior"
+                android:text="Gráficos" />
+
+            <Button
+                android:id="@+id/btnGraficos"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/botao_menu_inferior"
+                android:text="Configurar" />
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
