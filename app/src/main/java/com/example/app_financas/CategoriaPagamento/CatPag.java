@@ -1,4 +1,4 @@
-package com.example.app_financas;
+package com.example.app_financas.CategoriaPagamento;
 
 public class CatPag {
     private int id_categoriaPag;

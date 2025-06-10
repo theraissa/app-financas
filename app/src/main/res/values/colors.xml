@@ -6,12 +6,11 @@
     <color name="transparente">#00FFFFFF</color>
 
     <!-- CONFIGURAR -->
-    <color name="fundo_configurar">#EABDE6</color>
+    <color name="fundo">#FFFBDA</color>
     <color name="btn_configurar">#FFDFEF</color>
 
-
     <!-- NAV MENU -->
-    <color name="fundo_nav_menu">#E59BE9</color>
+    <color name="fundo_nav_menu">#FFC6C6</color>
 
     <!-- CATEGORIA GERAL-->
     <color name="fundo_cat_geral">#FFDBDB</color>

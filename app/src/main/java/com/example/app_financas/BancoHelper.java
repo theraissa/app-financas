@@ -6,7 +6,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class BancoHelper extends SQLiteOpenHelper{
     private static final String DATABASE_NAME = "financas.db";
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 4;
     public BancoHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
@@ -24,16 +24,24 @@ public class BancoHelper extends SQLiteOpenHelper{
                 "nome_categoriaGeral TEXT NOT NULL);";
         db.execSQL(sqlCategoriaGeral);
 
-        //tabela categoria geral
+        //tabela categoria pagamento
         String sqlCategoriaPagamento = "CREATE TABLE CategoriaPagamento (" +
                 "id_categoriaPag INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 "nome_categoriaPag TEXT NOT NULL);";
         db.execSQL(sqlCategoriaPagamento);
+
+        //tabela categoria forma pagamento
+        String sqlCategoriaFormaPagamento = "CREATE TABLE CategoriaFormaPagamento (" +
+                "id_categoriaFormaPag INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                "nome_categoriaFormaPag TEXT NOT NULL);";
+        db.execSQL(sqlCategoriaFormaPagamento);
     }
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS Perfil");
         db.execSQL("DROP TABLE IF EXISTS CategoriaGeral");
+        db.execSQL("DROP TABLE IF EXISTS CategoriaPagamento");
+        db.execSQL("DROP TABLE IF EXISTS CategoriaFormaPagamento");
         onCreate(db);
     }
 }

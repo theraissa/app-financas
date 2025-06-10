@@ -10,7 +10,9 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.app_financas.CategoriaFormaPag.CategoriaFormaPag;
 import com.example.app_financas.CategoriaGeral.CategoriaGeral;
+import com.example.app_financas.CategoriaPagamento.CategoriaPagamento;
 import com.example.app_financas.Perfil.CadastroPerfil;
 
 public class Configurar extends AppCompatActivity {
@@ -43,7 +45,14 @@ public class Configurar extends AppCompatActivity {
         Intent i = new Intent(this, CategoriaGeral.class);
         startActivity(i);
     }
-
+    public void telaConfigurarCategoriaPagamento(View v){
+        Intent i = new Intent(this, CategoriaPagamento.class);
+        startActivity(i);
+    }
+    public void telaConfigurarCategoriaFormaPagamento(View v){
+        Intent i = new Intent(this, CategoriaFormaPag.class);
+        startActivity(i);
+    }
 
 
 }
