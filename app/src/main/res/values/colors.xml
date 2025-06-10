@@ -5,6 +5,8 @@
     <color name="laranjinha">#FFEC9E</color>
     <color name="transparente">#00FFFFFF</color>
 
+    <color name="fundo_rosinha">#FFDBDB</color>
+
     <!-- CONFIGURAR -->
     <color name="fundo">#FFFBDA</color>
     <color name="btn_configurar">#FFDFEF</color>

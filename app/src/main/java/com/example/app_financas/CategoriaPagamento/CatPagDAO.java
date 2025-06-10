@@ -6,6 +6,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.example.app_financas.BancoHelper;
+import com.example.app_financas.CategoriaGeral.CatGeral;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,6 +24,17 @@ public class CatPagDAO {
         values.put("nome_categoriaPag", catPag.getNome_categoriaPag());
         return db.insert("CategoriaPagamento", null, values);
     }
+
+    public void excluir(CatPag catPag) {
+        db.delete("CategoriaPagamento", "id_categoriaPag = ?", new String[]{String.valueOf(catPag.getId_categoriaPag())});
+    }
+
+    public void atualizar(CatPag catPag) {
+        ContentValues values = new ContentValues();
+        values.put("nome_categoriaPag", catPag.getNome_categoriaPag());
+        db.update("CategoriaPagamento", values, "id_categoriaPag = ?", new String[]{String.valueOf(catPag.getId_categoriaPag())});
+    }
+
     public List<CatPag> listar(){
         List<CatPag> catpags = new ArrayList<>();
         Cursor cursor = db.rawQuery("SELECT * FROM CategoriaPagamento", null);
@@ -34,11 +47,5 @@ public class CatPagDAO {
         cursor.close();
         return catpags;
     }
-
-
-
-
-
-
 
 }

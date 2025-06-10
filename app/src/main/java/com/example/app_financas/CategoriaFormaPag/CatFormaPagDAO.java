@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.example.app_financas.BancoHelper;
+import com.example.app_financas.CategoriaGeral.CatGeral;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +23,14 @@ public class CatFormaPagDAO {
         ContentValues values = new ContentValues();
         values.put("nome_categoriaFormaPag", catFormaPag.getNome_categoriaFormaPag());
         return db.insert("CategoriaFormaPagamento", null, values);
+    }
+    public void excluir(CatFormaPag catFormaPag) {
+        db.delete("CategoriaFormaPagamento", "id_categoriaFormaPag = ?", new String[]{String.valueOf(catFormaPag.getId_categoriaFormaPag())});
+    }
+    public void atualizar(CatFormaPag catFormaPag) {
+        ContentValues values = new ContentValues();
+        values.put("nome_categoriaFormaPag", catFormaPag.getNome_categoriaFormaPag());
+        db.update("CategoriaFormaPagamento", values, "id_categoriaFormaPag = ?", new String[]{String.valueOf(catFormaPag.getId_categoriaFormaPag())});
     }
     public List<CatFormaPag> listar(){
         List<CatFormaPag> catformapags = new ArrayList<>();

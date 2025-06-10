@@ -1,5 +1,7 @@
 package com.example.app_financas.CategoriaPagamento;
 
+import android.app.AlertDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
@@ -13,9 +15,6 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.app_financas.CategoriaGeral.CatGeral;
-import com.example.app_financas.CategoriaGeral.CatGeralAdapter;
-import com.example.app_financas.CategoriaGeral.CatGeralDAO;
 import com.example.app_financas.R;
 
 import java.util.List;
@@ -68,9 +67,36 @@ public class CategoriaPagamento extends AppCompatActivity {
     }
     private void carregarCategoriasPagamento(){
         List<CatPag> catpags = catpagDAO.listar();
-        catpagAdapter = new CatPagAdapter(catpags, catpag -> {
-            Toast.makeText(this, "Selecionado: " + catpag.getNome_categoriaPag(), Toast.LENGTH_SHORT).show();
+        catpagAdapter = new CatPagAdapter(catpags, new CatPagAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(CatPag catpag) {
+                Toast.makeText(CategoriaPagamento.this, "Selecionado: " + catpag.getNome_categoriaPag(), Toast.LENGTH_SHORT).show();
+            }
+            @Override
+            public void onEditarClick(CatPag catpag) {
+                // Abrir nova tela para edição
+                Intent intent = new Intent(CategoriaPagamento.this, EditarCatPag.class);
+                intent.putExtra("categoria_id", catpag.getId_categoriaPag());
+                intent.putExtra("categoria_nome", catpag.getNome_categoriaPag());
+                startActivity(intent);
+            }
+            @Override
+            public void onExcluirClick(CatPag catpag) {
+                // Diálogo de confirmação
+                new AlertDialog.Builder(CategoriaPagamento.this)
+                        .setTitle("Excluir Categoria")
+                        .setMessage("Tem certeza que deseja excluir esta categoria?")
+                        .setPositiveButton("Sim", (dialog, which) -> {
+                            catpagDAO.excluir(catpag);
+                            carregarCategoriasPagamento();
+                            Toast.makeText(CategoriaPagamento.this, "Categoria excluída!", Toast.LENGTH_SHORT).show();
+                        })
+                        .setNegativeButton("Cancelar", null)
+                        .show();
+            }
+
         });
+
         recyclerCatPag.setAdapter(catpagAdapter);
     }
 

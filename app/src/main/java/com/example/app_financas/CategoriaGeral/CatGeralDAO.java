@@ -23,6 +23,14 @@ public class CatGeralDAO {
         values.put("nome_categoriaGeral", catGeral.getNome_categoriaGeral());
         return db.insert("CategoriaGeral", null, values);
     }
+    public void excluir(CatGeral catGeral) {
+        db.delete("CategoriaGeral", "id_categoriaGeral = ?", new String[]{String.valueOf(catGeral.getId_categoriaGeral())});
+    }
+    public void atualizar(CatGeral catGeral) {
+        ContentValues values = new ContentValues();
+        values.put("nome_categoriaGeral", catGeral.getNome_categoriaGeral());
+        db.update("CategoriaGeral", values, "id_categoriaGeral = ?", new String[]{String.valueOf(catGeral.getId_categoriaGeral())});
+    }
     public List<CatGeral> listar(){
         List<CatGeral> catgerals = new ArrayList<>();
         Cursor cursor = db.rawQuery("SELECT * FROM CategoriaGeral", null);
@@ -35,6 +43,4 @@ public class CatGeralDAO {
         cursor.close();
         return catgerals;
     }
-
-
 }

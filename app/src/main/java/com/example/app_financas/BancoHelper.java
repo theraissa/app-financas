@@ -6,7 +6,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class BancoHelper extends SQLiteOpenHelper{
     private static final String DATABASE_NAME = "financas.db";
-    private static final int DATABASE_VERSION = 4;
+    private static final int DATABASE_VERSION = 5;
     public BancoHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }

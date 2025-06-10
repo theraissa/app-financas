@@ -3,10 +3,12 @@ package com.example.app_financas.CategoriaFormaPag;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.app_financas.CategoriaGeral.CatGeral;
 import com.example.app_financas.R;
 
 import java.util.List;
@@ -17,6 +19,8 @@ public class CatFormaPagAdapter extends RecyclerView.Adapter<CatFormaPagAdapter.
     private CatFormaPagAdapter.OnItemClickListener listenerFormaPag;
     public interface OnItemClickListener {
         void onItemClick(CatFormaPag catformapag);
+        void onEditarClick(CatFormaPag catformapag);
+        void onExcluirClick(CatFormaPag catformapag);
     }
     public CatFormaPagAdapter(List<CatFormaPag> catformapags, CatFormaPagAdapter.OnItemClickListener listenerFormaPag) {
         this.catformapags = catformapags;
@@ -24,14 +28,18 @@ public class CatFormaPagAdapter extends RecyclerView.Adapter<CatFormaPagAdapter.
     }
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public TextView nomeCategoriaFormaPag;
-
+        Button btnEditarCatFormaPag, btnExcluirCatFormaPag;
         public ViewHolder(View itemView){
             super(itemView);
             nomeCategoriaFormaPag = itemView.findViewById(R.id.textViewNomeCatFormaPag);
+            btnEditarCatFormaPag = itemView.findViewById(R.id.buttonEditarCatFormaPag);
+            btnExcluirCatFormaPag = itemView.findViewById(R.id.buttonExcluirCatFormaPag);
         }
         public void bind(CatFormaPag catformapag, CatFormaPagAdapter.OnItemClickListener listenerFormaPag){
             nomeCategoriaFormaPag.setText(catformapag.getNome_categoriaFormaPag());
             itemView.setOnClickListener(v -> listenerFormaPag.onItemClick(catformapag));
+            btnEditarCatFormaPag.setOnClickListener(v -> listenerFormaPag.onEditarClick(catformapag));
+            btnExcluirCatFormaPag.setOnClickListener(v -> listenerFormaPag.onExcluirClick(catformapag));
         }
     }
     @Override

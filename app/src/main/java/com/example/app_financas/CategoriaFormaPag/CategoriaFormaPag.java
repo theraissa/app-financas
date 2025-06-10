@@ -1,5 +1,7 @@
 package com.example.app_financas.CategoriaFormaPag;
 
+import android.app.AlertDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
@@ -64,9 +66,35 @@ public class CategoriaFormaPag extends AppCompatActivity {
     }
     private void carregarCategoriasFormaPag(){
         List<CatFormaPag> catformapags = catformapagDAO.listar();
-        catformapagAdapter = new CatFormaPagAdapter(catformapags, catgeral -> {
-            Toast.makeText(this, "Selecionado: " + catgeral.getNome_categoriaFormaPag(), Toast.LENGTH_SHORT).show();
+        catformapagAdapter = new CatFormaPagAdapter(catformapags, new CatFormaPagAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(CatFormaPag catformapag) {
+                Toast.makeText(CategoriaFormaPag.this, "Selecionado: " + catformapag.getNome_categoriaFormaPag(), Toast.LENGTH_SHORT).show();
+            }
+            @Override
+            public void onEditarClick(CatFormaPag catformapag) {
+                // Abrir nova tela para edição
+                Intent intent = new Intent(CategoriaFormaPag.this, EditarCatFormaPag.class);
+                intent.putExtra("categoria_id", catformapag.getId_categoriaFormaPag());
+                intent.putExtra("categoria_nome", catformapag.getNome_categoriaFormaPag());
+                startActivity(intent);
+            }
+            @Override
+            public void onExcluirClick(CatFormaPag catformapag) {
+                // Diálogo de confirmação
+                new AlertDialog.Builder(CategoriaFormaPag.this)
+                        .setTitle("Excluir Categoria")
+                        .setMessage("Tem certeza que deseja excluir esta categoria?")
+                        .setPositiveButton("Sim", (dialog, which) -> {
+                            catformapagDAO.excluir(catformapag);
+                            carregarCategoriasFormaPag();
+                            Toast.makeText(CategoriaFormaPag.this, "Categoria excluída!", Toast.LENGTH_SHORT).show();
+                        })
+                        .setNegativeButton("Cancelar", null)
+                        .show();
+            }
         });
+
         recyclerCatFormaPag.setAdapter(catformapagAdapter);
     }
 

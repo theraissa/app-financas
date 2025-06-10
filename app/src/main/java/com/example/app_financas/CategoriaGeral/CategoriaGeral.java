@@ -1,5 +1,7 @@
 package com.example.app_financas.CategoriaGeral;
 
+import android.app.AlertDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
@@ -62,13 +64,38 @@ public class CategoriaGeral extends AppCompatActivity {
         super.onResume();
         carregarCategoriasGeral();
     }
-    private void carregarCategoriasGeral(){
+    private void carregarCategoriasGeral() {
         List<CatGeral> catgerals = catgeralDAO.listar();
-        catgeralAdapter = new CatGeralAdapter(catgerals, catgeral -> {
-            Toast.makeText(this, "Selecionado: " + catgeral.getNome_categoriaGeral(), Toast.LENGTH_SHORT).show();
+        catgeralAdapter = new CatGeralAdapter(catgerals, new CatGeralAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(CatGeral catgeral) {
+                Toast.makeText(CategoriaGeral.this, "Selecionado: " + catgeral.getNome_categoriaGeral(), Toast.LENGTH_SHORT).show();
+            }
+            @Override
+            public void onEditarClick(CatGeral catgeral) {
+                // Abrir nova tela para edição
+                Intent intent = new Intent(CategoriaGeral.this, EditarCatGeral.class);
+                intent.putExtra("categoria_id", catgeral.getId_categoriaGeral());
+                intent.putExtra("categoria_nome", catgeral.getNome_categoriaGeral());
+                startActivity(intent);
+            }
+            @Override
+            public void onExcluirClick(CatGeral catgeral) {
+                // Diálogo de confirmação
+                new AlertDialog.Builder(CategoriaGeral.this)
+                        .setTitle("Excluir Categoria")
+                        .setMessage("Tem certeza que deseja excluir esta categoria?")
+                        .setPositiveButton("Sim", (dialog, which) -> {
+                            catgeralDAO.excluir(catgeral);
+                            carregarCategoriasGeral();
+                            Toast.makeText(CategoriaGeral.this, "Categoria excluída!", Toast.LENGTH_SHORT).show();
+                        })
+                        .setNegativeButton("Cancelar", null)
+                        .show();
+            }
         });
-        recyclerCatGeral.setAdapter(catgeralAdapter);
 
+        recyclerCatGeral.setAdapter(catgeralAdapter);
     }
 
 }
