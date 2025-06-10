@@ -194,6 +194,7 @@
             android:layout_width="300dp"
             android:layout_height="40dp"
             android:text="Acessar"
+            android:onClick="telaConsultar"
             android:layout_marginTop="20dp"
             android:layout_marginBottom="24dp"
             android:background="@drawable/botao_amarelo"

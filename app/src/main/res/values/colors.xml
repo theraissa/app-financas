@@ -1,9 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
-    <color name="black">#FF000000</color>
+    <color name="black">#000000</color>
     <color name="white">#FFFFFF</color>
     <color name="laranjinha">#FFEC9E</color>
     <color name="transparente">#00FFFFFF</color>
+
+    <!-- CONFIGURAR -->
+    <color name="fundo_configurar">#EABDE6</color>
+    <color name="btn_configurar">#FFDFEF</color>
+
+
+    <!-- NAV MENU -->
+    <color name="fundo_nav_menu">#E59BE9</color>
+
+    <!-- CATEGORIA GERAL-->
+    <color name="fundo_cat_geral">#FFDBDB</color>
+    <color name="btn_cat_geral">#FFC6C6</color>
+
+    <!-- RECYCLER VIEW - CATEGORIA GERAL-->
+    <color name="btn_editar">#FCEF91</color>
+    <color name="btn_excluir">#EA2F14</color>
+    <color name="fundo_recycler_vier">#FFC6C6</color>
 
 </resources>

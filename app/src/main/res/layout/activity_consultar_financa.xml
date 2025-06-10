@@ -14,21 +14,22 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="24dp">
-    <!-- Vertical na esquerda-->
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guidelineStart"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_begin="20dp" />
 
-    <!-- Vertical na direita -->
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guidelineEnd"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_end="20dp" />
+        <!-- Vertical na esquerda-->
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guidelineStart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="20dp" />
+
+        <!-- Vertical na direita -->
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guidelineEnd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_end="20dp" />
 
 
         <!-- Spinner Categoria -->
@@ -221,6 +222,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:onClick="telaGrafico"
                 android:background="@drawable/botao_menu_inferior"
                 android:text="Gráficos" />
 
@@ -229,6 +231,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:onClick="telaConfigurar"
                 android:background="@drawable/botao_menu_inferior"
                 android:text="Configurar" />
         </LinearLayout>
