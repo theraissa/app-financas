@@ -31,6 +31,34 @@ public class CatGeralDAO {
         values.put("nome_categoriaGeral", catGeral.getNome_categoriaGeral());
         db.update("CategoriaGeral", values, "id_categoriaGeral = ?", new String[]{String.valueOf(catGeral.getId_categoriaGeral())});
     }
+    public Integer buscarIdPorNome(String nome) {
+        Integer id = null;
+        Cursor cursor = db.rawQuery("SELECT id_categoriaGeral FROM CategoriaGeral WHERE nome_categoriaGeral = ?", new String[]{nome});
+
+        if (cursor != null && cursor.moveToFirst()) {
+            id = cursor.getInt(cursor.getColumnIndexOrThrow("id_categoriaGeral"));
+        }
+        if (cursor != null) {
+            cursor.close();
+        }
+        return id;
+    }
+    public String buscarNomePorId(int id) {
+        String nome = null;
+        Cursor cursor = db.query(
+                "CategoriaGeral",
+                new String[]{"nome_categoriaGeral"},
+                "id_categoriaGeral = ?",
+                new String[]{String.valueOf(id)},
+                null, null, null);
+
+        if (cursor != null && cursor.moveToFirst()) {
+            nome = cursor.getString(cursor.getColumnIndexOrThrow("nome_categoriaGeral"));
+            cursor.close();
+        }
+        return nome;
+    }
+
     public List<CatGeral> listar(){
         List<CatGeral> catgerals = new ArrayList<>();
         Cursor cursor = db.rawQuery("SELECT * FROM CategoriaGeral", null);

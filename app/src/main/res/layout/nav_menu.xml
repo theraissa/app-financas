@@ -6,35 +6,38 @@
     android:layout_height="50dp"
     android:background="@drawable/tema_nav_menu"
     android:orientation="horizontal"
-    android:padding="5dp">
+    android:padding="5dp"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintEnd_toEndOf="parent">
 
+    <Button
+        android:id="@+id/btnInicial"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:textSize="12dp"
+        android:textColor="@color/black"
+        android:onClick="telaInicio"
+        android:background="@drawable/botao_menu_inferior"
+        android:text="Inicio"/>
     <Button
         android:id="@+id/btnConsultar"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
+        android:onClick="telaConsultar"
         android:textSize="12dp"
         android:textColor="@color/black"
-        android:onClick="telaConsultar"
         android:background="@drawable/botao_menu_inferior"
-        android:text="Consultar"/>
+        android:text="Consultar" />
     <Button
         android:id="@+id/btnConfigurar"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:onClick="telaGrafico"
+        android:onClick="telaConfigurar"
         android:textSize="12dp"
-        android:textColor="@color/black"
-        android:background="@drawable/botao_menu_inferior"
-        android:text="Gráficos" />
-    <Button
-        android:id="@+id/btnGraficos"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:textSize="12dp"
-        android:textStyle="bold"
         android:textColor="@color/black"
         android:background="@drawable/botao_menu_inferior"
         android:text="Configurar" />

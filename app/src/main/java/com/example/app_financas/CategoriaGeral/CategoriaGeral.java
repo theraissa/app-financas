@@ -66,6 +66,7 @@ public class CategoriaGeral extends AppCompatActivity {
     }
     private void carregarCategoriasGeral() {
         List<CatGeral> catgerals = catgeralDAO.listar();
+
         catgeralAdapter = new CatGeralAdapter(catgerals, new CatGeralAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(CatGeral catgeral) {

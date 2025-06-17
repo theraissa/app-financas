@@ -33,8 +33,8 @@ public class Configurar extends AppCompatActivity {
         Intent i = new Intent(this, ConsultarFinanca.class);
         startActivity(i);
     }
-    public void telaGrafico(View v){
-        Intent i = new Intent(this, Grafico.class);
+    public void telaInicio(View v){
+        Intent i = new Intent(this, MainActivity.class);
         startActivity(i);
     }
     public void telaCadastrarPerfil(View v){

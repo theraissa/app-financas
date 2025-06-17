@@ -32,6 +32,34 @@ public class CatFormaPagDAO {
         values.put("nome_categoriaFormaPag", catFormaPag.getNome_categoriaFormaPag());
         db.update("CategoriaFormaPagamento", values, "id_categoriaFormaPag = ?", new String[]{String.valueOf(catFormaPag.getId_categoriaFormaPag())});
     }
+
+    public Integer buscarIdPorNome(String nome) {
+        Integer id = null;
+        Cursor cursor = db.rawQuery("SELECT id_categoriaFormaPag FROM CategoriaFormaPagamento WHERE nome_categoriaFormaPag = ?", new String[]{nome});
+
+        if (cursor != null && cursor.moveToFirst()) {
+            id = cursor.getInt(cursor.getColumnIndexOrThrow("id_categoriaFormaPag"));
+        }
+        if (cursor != null) {
+            cursor.close();
+        }
+        return id;
+    }
+    public String buscarNomePorId(int id) {
+        String nome = null;
+        Cursor cursor = db.query(
+                "CategoriaFormaPagamento", new String[]{"nome_categoriaFormaPag"},
+                "id_categoriaFormaPag = ?",
+                new String[]{String.valueOf(id)},
+                null, null, null);
+
+        if (cursor != null && cursor.moveToFirst()) {
+            nome = cursor.getString(cursor.getColumnIndexOrThrow("nome_categoriaFormaPag"));
+            cursor.close();
+        }
+        return nome;
+    }
+
     public List<CatFormaPag> listar(){
         List<CatFormaPag> catformapags = new ArrayList<>();
         Cursor cursor = db.rawQuery("SELECT * FROM CategoriaFormaPagamento", null);

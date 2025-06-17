@@ -6,7 +6,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class BancoHelper extends SQLiteOpenHelper{
     private static final String DATABASE_NAME = "financas.db";
-    private static final int DATABASE_VERSION = 5;
+    private static final int DATABASE_VERSION = 8;
     public BancoHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
@@ -35,6 +35,22 @@ public class BancoHelper extends SQLiteOpenHelper{
                 "id_categoriaFormaPag INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 "nome_categoriaFormaPag TEXT NOT NULL);";
         db.execSQL(sqlCategoriaFormaPagamento);
+
+        //tabela transações
+        String sqlTransacao = "CREATE TABLE Transacao (" +
+                "id_transacao INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                "valor REAL, " +
+                "descricao TEXT, " +
+                "tipo TEXT, " +
+                "data TEXT, " +
+                "id_categoriaGeral INTEGER, " +
+                "id_categoriaPag INTEGER, " +
+                "id_categoriaFormaPag INTEGER, " +
+                "FOREIGN KEY (id_categoriaGeral) REFERENCES CategoriaGeral(id_categoriaGeral), " +
+                "FOREIGN KEY (id_categoriaPag) REFERENCES CategoriaPagamento(id_categoriaPag), " +
+                "FOREIGN KEY (id_categoriaFormaPag) REFERENCES CategoriaFormaPagamento(id_categoriaFormaPag)" +
+                ");";
+        db.execSQL(sqlTransacao);
     }
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
@@ -42,6 +58,7 @@ public class BancoHelper extends SQLiteOpenHelper{
         db.execSQL("DROP TABLE IF EXISTS CategoriaGeral");
         db.execSQL("DROP TABLE IF EXISTS CategoriaPagamento");
         db.execSQL("DROP TABLE IF EXISTS CategoriaFormaPagamento");
+        db.execSQL("DROP TABLE IF EXISTS Transacao");
         onCreate(db);
     }
 }
