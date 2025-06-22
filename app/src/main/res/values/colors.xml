@@ -1,11 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!--FUNDO PRINCIPAL DAS TELAS-->
+    <color name="fundo_amarelo">#FFFBDA</color>
+
+    <!--CORES MAIS USADAS-->
     <color name="black">#000000</color>
     <color name="white">#FFFFFF</color>
     <color name="laranjinha">#FFEC9E</color>
     <color name="transparente">#00FFFFFF</color>
+    <color name="amarelo_claro">#FFF6C5</color>
 
-    <color name="fundo_rosinha">#FFDBDB</color>
+    <!--BOTÃO - TELA PRINCIPAL-->
+    <color name="laranjinha_clique">#FFD586</color>
+    <color name="btn_laranjinha">#FFD586</color>
 
     <!-- CONFIGURAR -->
     <color name="fundo">#FFFBDA</color>
@@ -14,9 +21,12 @@
     <!-- NAV MENU -->
     <color name="fundo_nav_menu">#FFC6C6</color>
 
-    <!-- CATEGORIA GERAL-->
+    <!-- TELAS DE CADASTRAR - PERFIL E CATEGORIAS-->
+    <color name="fundo_rosinha">#FCD8CD</color>
     <color name="fundo_cat_geral">#FFDBDB</color>
-    <color name="btn_cat_geral">#FFC6C6</color>
+    <color name="fundo_btn_cat_perfil">#FFC6C6</color>
+    <color name="borda_btn_car_perfil">#FFD8D8</color>
+    <color name="letra_rosa">#D91656</color>
 
     <!-- RECYCLER VIEW - CATEGORIA GERAL-->
     <color name="btn_editar">#FCEF91</color>

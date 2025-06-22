@@ -59,7 +59,18 @@ public class CatFormaPagDAO {
         }
         return nome;
     }
+    public boolean catFormaPagTransacoesRelacionadas(int idCategoriaFormaPag) {
+        String sql = "SELECT COUNT(*) FROM Transacao WHERE id_categoriaFormaPag = ?";
+        Cursor cursor = db.rawQuery(sql, new String[]{String.valueOf(idCategoriaFormaPag)});
+        boolean temRelacionadas = false;
 
+        if (cursor.moveToFirst()) {
+            int count = cursor.getInt(0);
+            temRelacionadas = count > 0;
+        }
+        cursor.close();
+        return temRelacionadas;
+    }
     public List<CatFormaPag> listar(){
         List<CatFormaPag> catformapags = new ArrayList<>();
         Cursor cursor = db.rawQuery("SELECT * FROM CategoriaFormaPagamento", null);

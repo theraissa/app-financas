@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import com.example.app_financas.BancoHelper;
 import com.example.app_financas.CategoriaGeral.CatGeral;
@@ -57,6 +58,22 @@ public class CatPagDAO {
             cursor.close();
         }
         return nome;
+    }
+    public boolean catPagTransacoesRelacionadas(int idCategoriaPag) {
+        String sql = "SELECT COUNT(*) FROM Transacao WHERE id_categoriaPag = ?";
+        Cursor cursor = db.rawQuery(sql, new String[]{String.valueOf(idCategoriaPag)});
+        boolean temRelacionadas = false;
+        Log.d("DEBUG", "Verificando transações com id_categoriaPag = " + idCategoriaPag);
+
+        if (cursor.moveToFirst()) {
+            int count = cursor.getInt(0);
+            Log.d("DEBUG", "Quantidade encontrada: " + count);
+
+            temRelacionadas = count > 0;
+        }
+
+        cursor.close();
+        return temRelacionadas;
     }
     public List<CatPag> listar(){
         List<CatPag> catpags = new ArrayList<>();

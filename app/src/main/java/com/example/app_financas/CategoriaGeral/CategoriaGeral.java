@@ -15,6 +15,7 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.app_financas.CategoriaPagamento.CategoriaPagamento;
 import com.example.app_financas.R;
 
 import java.util.List;
@@ -82,7 +83,10 @@ public class CategoriaGeral extends AppCompatActivity {
             }
             @Override
             public void onExcluirClick(CatGeral catgeral) {
-                // Diálogo de confirmação
+                if (catgeralDAO.catGeralTransacoesRelacionadas(catgeral.getId_categoriaGeral())) {
+                    Toast.makeText(CategoriaGeral.this, "Não é possível excluir: há transações vinculadas a esta categoria!", Toast.LENGTH_LONG).show();
+                    return;
+                }
                 new AlertDialog.Builder(CategoriaGeral.this)
                         .setTitle("Excluir Categoria")
                         .setMessage("Tem certeza que deseja excluir esta categoria?")

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
-    <solid android:color="@color/btn_cat_geral"/>
+    <solid android:color="@color/fundo_btn_cat_perfil"/>
     <corners android:radius="30dp"/>
     <stroke
         android:width="2dp"
-        android:color="#D91656"
+        android:color="@color/borda_btn_car_perfil"
         />
 </shape>

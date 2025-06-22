@@ -49,7 +49,7 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="15dp"
                 android:layout_marginBottom="15dp"
-                android:background="@drawable/btn_cat_geral"
+                android:background="@drawable/btn_cat_perfil"
                 app:backgroundTint="@null"
                 android:textColor="@color/black"
                 android:text="Confirmar" />

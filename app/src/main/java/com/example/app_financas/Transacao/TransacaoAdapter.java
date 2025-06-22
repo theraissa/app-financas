@@ -35,11 +35,22 @@ public class TransacaoAdapter extends RecyclerView.Adapter<TransacaoAdapter.View
             valor.setText(String.format("R$ %.2f", transacao.getValor()));
             desc.setText(transacao.getDescricao());
             data.setText(transacao.getData());
-            String categorias = transacao.getNomeCategoriaGeral() + " | " +
-                    transacao.getNomeCategoriaPagamento() + " | " +
-                    transacao.getNomeCategoriaFormaPagamento();
-            filtro.setText(categorias);
 
+            //só irá aparecer as categorias que foram selecionadas no momento da inserção
+            StringBuilder categoriasBuilder = new StringBuilder();
+            if (transacao.getNomeCategoriaGeral() != null) {
+                categoriasBuilder.append(transacao.getNomeCategoriaGeral());
+            }
+            if (transacao.getNomeCategoriaPagamento() != null) {
+                if (categoriasBuilder.length() > 0) categoriasBuilder.append(" | ");
+                categoriasBuilder.append(transacao.getNomeCategoriaPagamento());
+            }
+            if (transacao.getNomeCategoriaFormaPagamento() != null) {
+                if (categoriasBuilder.length() > 0) categoriasBuilder.append(" | ");
+                categoriasBuilder.append(transacao.getNomeCategoriaFormaPagamento());
+            }
+
+            filtro.setText(categoriasBuilder.toString());
             itemView.setOnClickListener(v -> listener.onItemClick(transacao));
         }
     }

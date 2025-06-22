@@ -37,34 +37,49 @@ public class TransacaoDAO {
         return db.insert("Transacao", null, valores);
     }
 
-    public List<Transacao> buscarTransacoesComFiltros(String categoriaGeral, String categoriaFormaPag, String dataInicio, String dataFim, String tipo) {
+    public List<Transacao> buscarTransacoesComFiltros(String categoriaGeral, String categoriaFormaPag,
+                                                      String dataInicio, String dataFim, List<String> tipos) {
         List<Transacao> lista = new ArrayList<>();
-        StringBuilder sql = new StringBuilder("SELECT * FROM Transacao WHERE 1=1 ");
+        StringBuilder sql = new StringBuilder(
+                "SELECT t.*, " +
+                        "cg.nome_categoriaGeral, " +
+                        "cp.nome_categoriaPag, " +
+                        "cfp.nome_categoriaFormaPag " +
+                        "FROM Transacao t " +
+                        "LEFT JOIN CategoriaGeral cg ON t.id_categoriaGeral = cg.id_categoriaGeral " +
+                        "LEFT JOIN CategoriaPagamento cp ON t.id_categoriaPag = cp.id_categoriaPag " +
+                        "LEFT JOIN CategoriaFormaPagamento cfp ON t.id_categoriaFormaPag = cfp.id_categoriaFormaPag " +
+                        "WHERE 1=1 "
+        );
         List<String> args = new ArrayList<>();
 
         if (categoriaGeral != null) {
-            sql.append("AND id_categoriaGeral = (SELECT id_categoriaGeral FROM CategoriaGeral WHERE nome_categoriaGeral = ?) ");
+            sql.append("AND t.id_categoriaGeral = (SELECT id_categoriaGeral FROM CategoriaGeral WHERE nome_categoriaGeral = ?) ");
             args.add(categoriaGeral);
         }
-
         if (categoriaFormaPag != null) {
-            sql.append("AND id_categoriaFormaPag = (SELECT id_categoriaFormaPag FROM CategoriaFormaPagamento WHERE nome_categoriaFormaPag = ?) ");
+            sql.append("AND t.id_categoriaFormaPag = (SELECT id_categoriaFormaPag FROM CategoriaFormaPagamento WHERE nome_categoriaFormaPag = ?) ");
             args.add(categoriaFormaPag);
         }
-
         if (dataInicio != null) {
-            sql.append("AND data >= ? ");
+            sql.append("AND t.data >= ? ");
             args.add(dataInicio);
         }
-
         if (dataFim != null) {
-            sql.append("AND data <= ? ");
+            sql.append("AND t.data <= ? ");
             args.add(dataFim);
         }
 
-        if (tipo != null) {
-            sql.append("AND tipo = ? ");
-            args.add(tipo);
+        if (tipos != null && !tipos.isEmpty()) {
+            sql.append("AND t.tipo IN (");
+            for (int i = 0; i < tipos.size(); i++) {
+                sql.append("?");
+                if (i < tipos.size() - 1) {
+                    sql.append(", ");
+                }
+            }
+            sql.append(") ");
+            args.addAll(tipos);
         }
 
         Cursor cursor = db.rawQuery(sql.toString(), args.toArray(new String[0]));
@@ -78,10 +93,17 @@ public class TransacaoDAO {
             t.setData(cursor.getString(cursor.getColumnIndexOrThrow("data")));
 
             int colGeral = cursor.getColumnIndexOrThrow("id_categoriaGeral");
+            int colPag = cursor.getColumnIndexOrThrow("id_categoriaPag");
             int colForma = cursor.getColumnIndexOrThrow("id_categoriaFormaPag");
 
             t.setIdCategoriaGeral(cursor.isNull(colGeral) ? null : cursor.getInt(colGeral));
+            t.setIdCategoriaPagamento(cursor.isNull(colPag) ? null : cursor.getInt(colPag));
             t.setIdCategoriaFormaPagamento(cursor.isNull(colForma) ? null : cursor.getInt(colForma));
+
+            // Aqui já pega os nomes para mostrar no RecyclerView
+            t.setNomeCategoriaGeral(cursor.getString(cursor.getColumnIndexOrThrow("nome_categoriaGeral")));
+            t.setNomeCategoriaPagamento(cursor.getString(cursor.getColumnIndexOrThrow("nome_categoriaPag")));
+            t.setNomeCategoriaFormaPagamento(cursor.getString(cursor.getColumnIndexOrThrow("nome_categoriaFormaPag")));
 
             lista.add(t);
         }
@@ -89,7 +111,6 @@ public class TransacaoDAO {
 
         return lista;
     }
-
     public List<Transacao> listar() {
         List<Transacao> lista = new ArrayList<>();
 

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="70dp"
     android:paddingTop="10dp"
-    android:background="@drawable/borda_sup_inf"
+    android:background="@drawable/borda_item_valor"
     android:orientation="vertical">
 
     <LinearLayout

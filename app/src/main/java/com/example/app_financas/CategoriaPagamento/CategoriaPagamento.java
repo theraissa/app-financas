@@ -82,7 +82,11 @@ public class CategoriaPagamento extends AppCompatActivity {
             }
             @Override
             public void onExcluirClick(CatPag catpag) {
-                // Diálogo de confirmação
+                if (catpagDAO.catPagTransacoesRelacionadas(catpag.getId_categoriaPag())) {
+                    Toast.makeText(CategoriaPagamento.this, "Não é possível excluir: há transações vinculadas a esta categoria!", Toast.LENGTH_LONG).show();
+                    return;
+                }
+
                 new AlertDialog.Builder(CategoriaPagamento.this)
                         .setTitle("Excluir Categoria")
                         .setMessage("Tem certeza que deseja excluir esta categoria?")
@@ -94,7 +98,6 @@ public class CategoriaPagamento extends AppCompatActivity {
                         .setNegativeButton("Cancelar", null)
                         .show();
             }
-
         });
 
         recyclerCatPag.setAdapter(catpagAdapter);

@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFBDA"
+    android:background="@color/fundo_amarelo"
     android:fillViewport="true"
     tools:context=".MainActivity">
 
@@ -39,7 +39,6 @@
             android:text="Olá, Usuário!"
             android:textSize="24sp"
             android:textStyle="bold"
-            android:textColor="#000"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="@id/guidelineStart"
             app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
@@ -113,8 +112,7 @@
                 android:background="@drawable/botao_selecionado"
                 android:text="Gasto"
                 android:gravity="center"
-                android:layout_marginRight="20dp"
-                android:textColor="#000" />
+                android:layout_marginRight="20dp"/>
 
             <RadioButton
                 android:id="@+id/rbGanho"
@@ -124,8 +122,7 @@
                 android:button="@null"
                 android:background="@drawable/botao_selecionado"
                 android:text="Ganho"
-                android:gravity="center"
-                android:textColor="#000" />
+                android:gravity="center"/>
         </RadioGroup>
 
         <!-- Campo de data -->
@@ -185,6 +182,7 @@
             app:backgroundTint="@null"
             android:textColor="@color/black"
             android:text="Confirmar"
+            android:textSize="16sp"
             app:barrierDirection="bottom"
             app:layout_constraintTop_toBottomOf="@id/spinnerCategoriaFormaPag"
             app:layout_constraintStart_toStartOf="@id/guidelineStart"
@@ -201,6 +199,7 @@
             android:layout_marginBottom="24dp"
             android:background="@drawable/botao_amarelo"
             app:backgroundTint="@null"
+            android:textSize="16sp"
             android:textColor="@color/black"
             app:layout_constraintTop_toBottomOf="@id/btnConfirmarTransacao"
             app:layout_constraintStart_toStartOf="@id/guidelineStart"

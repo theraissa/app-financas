@@ -35,20 +35,34 @@ public class CadastroPerfil extends AppCompatActivity {
     }
 
     public void CadastrarPerfil(View v){
-        String nome = nomePerfil.getText().toString().trim(); //trim tira os espaçamentos antes e depois
+        String nome = nomePerfil.getText().toString().trim(); // Remove espaços no início/fim
 
-        if(!nome.isEmpty()){
-            Perfil perfil = new Perfil(nome);
-            perfilDAO.remover();
-            long id = perfilDAO.inserir(perfil);
-            Toast.makeText(this, "Usuário cadastrado", Toast.LENGTH_SHORT).show(); //show para visualizar
-            nomePerfil.setText(""); //limpando a entrada
-            //trocar de tela
-            Intent intent = new Intent(this, MainActivity.class);
-            startActivity(intent);
-
-
+        if (nome.isEmpty()) {
+            Toast.makeText(this, "Por favor, insira um nome.", Toast.LENGTH_SHORT).show();
+            return;
         }
+
+        // Verifica se o nome contém espaços internos (ou seja, mais de uma palavra)
+        if (nome.contains(" ")) {
+            Toast.makeText(this, "Digite apenas o primeiro nome (sem espaços).", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        // Opcional: pode adicionar um limite de caracteres, se quiser
+        if (nome.length() > 10) {
+            Toast.makeText(this, "O nome deve ter no máximo 10 caracteres.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        Perfil perfil = new Perfil(nome);
+        perfilDAO.remover();
+        long id = perfilDAO.inserir(perfil);
+        Toast.makeText(this, "Usuário cadastrado", Toast.LENGTH_SHORT).show();
+        nomePerfil.setText("");
+
+        // Trocar de tela
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
 
     }
 

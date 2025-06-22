@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.content.Context;
+import android.util.Log;
 
 import com.example.app_financas.BancoHelper;
 
@@ -58,7 +59,18 @@ public class CatGeralDAO {
         }
         return nome;
     }
+    public boolean catGeralTransacoesRelacionadas(int idCategoriaGeral) {
+        String sql = "SELECT COUNT(*) FROM Transacao WHERE id_categoriaGeral = ?";
+        Cursor cursor = db.rawQuery(sql, new String[]{String.valueOf(idCategoriaGeral)});
+        boolean temRelacionadas = false;
 
+        if (cursor.moveToFirst()) {
+            int count = cursor.getInt(0);
+            temRelacionadas = count > 0;
+        }
+        cursor.close();
+        return temRelacionadas;
+    }
     public List<CatGeral> listar(){
         List<CatGeral> catgerals = new ArrayList<>();
         Cursor cursor = db.rawQuery("SELECT * FROM CategoriaGeral", null);

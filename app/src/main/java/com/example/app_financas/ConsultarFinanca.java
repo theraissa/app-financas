@@ -1,18 +1,21 @@
 package com.example.app_financas;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.InputType;
 import android.text.TextWatcher;
 import android.view.View;
 
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -31,14 +34,19 @@ import com.example.app_financas.Transacao.Transacao;
 import com.example.app_financas.Transacao.TransacaoAdapter;
 import com.example.app_financas.Transacao.TransacaoDAO;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class ConsultarFinanca extends AppCompatActivity {
     Spinner spnCatGeral, spnCatFormaPag;
     EditText dataInicial, dataFinal;
-    RadioButton rbGanho, rbGasto;
-    RadioGroup radioGroup;
+    CheckBox cbGasto, cbGanho;
+    LinearLayout checkboxGroup;
     TextView somaTotal;
     RecyclerView recyclerViewValores;
     private List<Transacao> listaTransacoes = new ArrayList<>();
@@ -54,6 +62,7 @@ public class ConsultarFinanca extends AppCompatActivity {
     private String catFormaPagSelecionada = null;
     private String dataInicialStr = null;
     private String dataFinalStr = null;
+    Calendar dataSelecionada = Calendar.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,9 +78,9 @@ public class ConsultarFinanca extends AppCompatActivity {
         spnCatFormaPag = findViewById(R.id.spinnerCategoriaFormaPag);
         dataInicial = findViewById(R.id.editTextDataInicial);
         dataFinal = findViewById(R.id.editTextDataFinal);
-        rbGasto = findViewById(R.id.rbGastoConsultar);
-        rbGanho = findViewById(R.id.rbGanhoConsultar);
-        radioGroup = findViewById(R.id.radioGroupTipo);
+        cbGasto = findViewById(R.id.cbGastoConsultar);
+        cbGanho = findViewById(R.id.cbGanhoConsultar);
+        checkboxGroup = findViewById(R.id.linearLayoutTipo);
         somaTotal = findViewById(R.id.somaTotal);
         recyclerViewValores = findViewById(R.id.recyclerViewValores);
 
@@ -80,8 +89,17 @@ public class ConsultarFinanca extends AppCompatActivity {
         catpagDAO = new CatPagDAO(this);
         catformapagDAO = new CatFormaPagDAO(this);
 
-        List<Transacao> lista = transacaoDAO.listar();
-        for (Transacao t : lista) {
+        listaTransacoes = transacaoDAO.listar(); // use diretamente a lista preenchida
+        transacaoAdapter = new TransacaoAdapter(listaTransacoes, transacao -> {
+        });
+
+        recyclerViewValores.setLayoutManager(new LinearLayoutManager(this));
+        recyclerViewValores.setAdapter(transacaoAdapter);
+
+        carregarCategoriasSpinners();
+        carregarTransacoesFiltros();
+
+        for (Transacao t : listaTransacoes) {
             if (t.getIdCategoriaGeral() != null) {
                 String nome = catgeralDAO.buscarNomePorId(t.getIdCategoriaGeral());
                 t.setNomeCategoriaGeral(nome);
@@ -98,15 +116,17 @@ public class ConsultarFinanca extends AppCompatActivity {
             }
         }
 
-        transacaoAdapter = new TransacaoAdapter(listaTransacoes, transacao -> {
-        });
-
-        recyclerViewValores.setLayoutManager(new LinearLayoutManager(this));
-        recyclerViewValores.setAdapter(transacaoAdapter);
-
-        carregarCategoriasSpinners();
-        carregarTransacoesFiltros();
         configurarFiltros();
+
+        // Desabilitar teclado, focar só no clique
+        dataInicial.setInputType(InputType.TYPE_NULL);
+        dataInicial.setFocusable(false);
+        dataFinal.setInputType(InputType.TYPE_NULL);
+        dataFinal.setFocusable(false);
+
+        dataInicial.setOnClickListener(v -> abrirDatePicker(dataInicial));
+        dataFinal.setOnClickListener(v -> abrirDatePicker(dataFinal));
+
     }
     public void telaInicio(View v){
         Intent i = new Intent(this, MainActivity.class);
@@ -116,6 +136,76 @@ public class ConsultarFinanca extends AppCompatActivity {
         Intent i = new Intent(this, Configurar.class);
         startActivity(i);
     }
+
+    private void abrirDatePicker(EditText editText) {
+        Calendar calendar = Calendar.getInstance();
+
+        // Se o campo já tem uma data, tenta usar ela como data inicial do DatePicker
+        String dataStr = editText.getText().toString();
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", new Locale("pt", "BR"));
+        try {
+            if (!dataStr.isEmpty()) {
+                Date data = sdf.parse(dataStr);
+                calendar.setTime(data);
+            }
+        } catch (ParseException e) {
+            // se erro, mantém a data atual
+        }
+
+        int ano = calendar.get(Calendar.YEAR);
+        int mes = calendar.get(Calendar.MONTH);
+        int dia = calendar.get(Calendar.DAY_OF_MONTH);
+
+        DatePickerDialog datePickerDialog = new DatePickerDialog(this,
+                (view, year, month, dayOfMonth) -> {
+                    calendar.set(year, month, dayOfMonth);
+                    editText.setText(sdf.format(calendar.getTime()));
+                }, ano, mes, dia);
+
+        datePickerDialog.show();
+    }
+
+    private boolean validarDatas() {
+        String dataIniStr = dataInicial.getText().toString().trim();
+        String dataFimStr = dataFinal.getText().toString().trim();
+
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", new Locale("pt", "BR"));
+        sdf.setLenient(false); // Para evitar datas inválidas tipo 32/01/2025
+
+        Date dataIni = null;
+        Date dataFim = null;
+
+        // Se um campo estiver vazio, consideramos válido (filtro aberto)
+        if (dataIniStr.isEmpty() && dataFimStr.isEmpty()) {
+            return true;
+        }
+
+        try {
+            if (!dataIniStr.isEmpty()) {
+                dataIni = sdf.parse(dataIniStr);
+            }
+            if (!dataFimStr.isEmpty()) {
+                dataFim = sdf.parse(dataFimStr);
+            }
+        } catch (ParseException e) {
+            Toast.makeText(this, "Formato de data inválido. Use dd/MM/yyyy.", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        // Se só uma data foi preenchida, ok
+        if (dataIni == null || dataFim == null) {
+            return true;
+        }
+
+        // Ambas preenchidas: dataInicial deve ser <= dataFinal
+        if (dataIni.after(dataFim)) {
+            Toast.makeText(this, "A data inicial não pode ser maior que a data final.", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        return true;
+    }
+
     public void carregarCategoriasSpinners() {
         catformapagDAO = new CatFormaPagDAO(this);
         List<CatFormaPag> listaCatFormaPag = catformapagDAO.listar();
@@ -153,57 +243,44 @@ public class ConsultarFinanca extends AppCompatActivity {
         spnCatGeral.setAdapter(adapterCatGeral);
     }
     private void capturarFiltros() {
-        // Tipo (Gasto / Ganho)
-        if (rbGasto.isChecked()) {
-            tipoSelecionadoId = R.id.rbGasto;
-        } else if (rbGanho.isChecked()) {
-            tipoSelecionadoId = R.id.rbGanho;
-        } else {
-            tipoSelecionadoId = -1;
-        }
-        // Categoria Geral selecionada no spinner
+        // Atualiza categorias e datas
         catGeralSelecionada = spnCatGeral.getSelectedItem() != null ?
                 spnCatGeral.getSelectedItem().toString() : null;
-        if ("--".equals(catGeralSelecionada)) {
-            catGeralSelecionada = null; // não filtrar
-        }
-        // Categoria Forma Pag selecionada no spinner
+        if ("--".equals(catGeralSelecionada)) catGeralSelecionada = null;
+
         catFormaPagSelecionada = spnCatFormaPag.getSelectedItem() != null ?
                 spnCatFormaPag.getSelectedItem().toString() : null;
-        if ("--".equals(catFormaPagSelecionada)) {
-            catFormaPagSelecionada = null; // não filtrar
-        }
+        if ("--".equals(catFormaPagSelecionada)) catFormaPagSelecionada = null;
 
-        // Datas
         dataInicialStr = dataInicial.getText().toString().trim();
         dataFinalStr = dataFinal.getText().toString().trim();
-
-        if (dataInicialStr.isEmpty()) {
-            dataInicialStr = null;
-        }
-        if (dataFinalStr.isEmpty()) {
-            dataFinalStr = null;
-        }
+        if (dataInicialStr.isEmpty()) dataInicialStr = null;
+        if (dataFinalStr.isEmpty()) dataFinalStr = null;
+    }
+    // retorna lista com tipos selecionados
+    private List<String> tiposSelecionados() {
+        List<String> tipos = new ArrayList<>();
+        if (cbGasto.isChecked()) tipos.add("Gasto");
+        if (cbGanho.isChecked()) tipos.add("Ganho");
+        return tipos;
     }
     private void carregarTransacoesFiltros() {
+        // Não continua se datas inválidas
+        if (!validarDatas()) {return;}
+
         // Pega os filtros atuais da UI
         capturarFiltros();
 
-        String tipo = null;
-        if (tipoSelecionadoId == R.id.rbGasto) {
-            tipo = "Gasto";
-        } else if (tipoSelecionadoId == R.id.rbGanho) {
-            tipo = "Ganho";
-        }
-
         // Busca as transações com os filtros no DAO (que você deve implementar)
+        List<String> tipos = tiposSelecionados();
+
         listaTransacoes.clear();
         listaTransacoes.addAll(transacaoDAO.buscarTransacoesComFiltros(
                 catGeralSelecionada,
                 catFormaPagSelecionada,
                 dataInicialStr,
                 dataFinalStr,
-                tipo));
+                tipos));
 
         transacaoAdapter.notifyDataSetChanged();
 
@@ -217,58 +294,40 @@ public class ConsultarFinanca extends AppCompatActivity {
         somaTotal.setText(String.format("Total: R$ %.2f", soma));
     }
     private void configurarFiltros() {
-        // Filtro: Categoria Geral
         spnCatGeral.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             boolean isFirstSelection = true;
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if (!isFirstSelection) {
-                    carregarTransacoesFiltros();
-                }
+                if (!isFirstSelection) carregarTransacoesFiltros();
                 isFirstSelection = false;
             }
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {}
+            @Override public void onNothingSelected(AdapterView<?> parent) {}
         });
 
-        // Filtro: Forma de Pagamento
         spnCatFormaPag.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             boolean isFirstSelection = true;
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if (!isFirstSelection) {
-                    carregarTransacoesFiltros();
-                }
+                if (!isFirstSelection) carregarTransacoesFiltros();
                 isFirstSelection = false;
             }
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {}
+            @Override public void onNothingSelected(AdapterView<?> parent) {}
         });
 
-        radioGroup.setOnCheckedChangeListener((group, checkedId) -> {
-            carregarTransacoesFiltros();
-        });
+        cbGasto.setOnCheckedChangeListener((buttonView, isChecked) -> carregarTransacoesFiltros());
+        cbGanho.setOnCheckedChangeListener((buttonView, isChecked) -> carregarTransacoesFiltros());
 
         configurarFiltroData(dataInicial);
         configurarFiltroData(dataFinal);
     }
+
     private void configurarFiltroData(EditText editText) {
         editText.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {}
-
-            @Override
-            public void afterTextChanged(Editable s) {
+            @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            @Override public void onTextChanged(CharSequence s, int start, int before, int count) {}
+            @Override public void afterTextChanged(Editable s) {
                 carregarTransacoesFiltros();
             }
         });
     }
-
-
-
-
-
 }

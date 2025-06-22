@@ -26,31 +26,32 @@
             android:layout_margin="20dp"
             android:gravity="center"
             android:text="Editar Categoria de Formas de Pagamento"
-            android:textSize="20dp"
+            android:textSize="18sp"
             android:textColor="@color/black"
             android:textStyle="bold"/>
         <TextView
             android:id="@+id/textViewNomeCatFormaPagAntigo"
-            android:layout_width="200dp"
+            android:layout_width="225dp"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:text="Nome Antigo da Categoria"
-            android:textSize="15dp"
+            android:textSize="15sp"
             android:textColor="@color/black"/>
         <EditText
             android:id="@+id/editTextNomeCatFormaPagNovo"
-            android:layout_width="200dp"
+            android:layout_width="225dp"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:textSize="13dp"
+            android:textSize="13sp"
             android:hint="Novo nome para categoria"/>
         <Button
             android:id="@+id/buttonSalvarCatFormaPag"
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:background="@drawable/btn_cat_geral"
+            android:layout_width="225dp"
+            android:layout_height="40dp"
+            android:background="@drawable/btn_cat_perfil"
             app:backgroundTint="@null"
-            android:textColor="@color/black"
+            android:textSize="15sp"
+            android:textColor="@color/letra_rosa"
             android:text="Salvar Alteração"/>
     </LinearLayout>
 
