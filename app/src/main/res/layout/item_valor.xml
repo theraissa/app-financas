@@ -42,6 +42,7 @@
             android:padding="3dp"
             android:textSize="13sp"
             android:text="dd/mm/yyyy" />
+
     </LinearLayout>
 
     <LinearLayout

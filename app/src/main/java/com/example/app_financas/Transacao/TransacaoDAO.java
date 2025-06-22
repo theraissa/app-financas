@@ -94,6 +94,7 @@ public class TransacaoDAO {
         List<Transacao> lista = new ArrayList<>();
 
         String sql = "SELECT t.id_transacao, t.valor, t.descricao, t.tipo, t.data, " +
+                "t.id_categoriaGeral, t.id_categoriaPag, t.id_categoriaFormaPag, " +
                 "cg.nome_categoriaGeral, cp.nome_categoriaPag, cfp.nome_categoriaFormaPag " +
                 "FROM Transacao t " +
                 "LEFT JOIN CategoriaGeral cg ON t.id_categoriaGeral = cg.id_categoriaGeral " +
@@ -110,17 +111,27 @@ public class TransacaoDAO {
             t.setTipo(cursor.getString(cursor.getColumnIndexOrThrow("tipo")));
             t.setData(cursor.getString(cursor.getColumnIndexOrThrow("data")));
 
-            // Aqui é o essencial: preenchendo os nomes das categorias
+            // IDs
+            int colGeral = cursor.getColumnIndexOrThrow("id_categoriaGeral");
+            int colPag = cursor.getColumnIndexOrThrow("id_categoriaPag");
+            int colForma = cursor.getColumnIndexOrThrow("id_categoriaFormaPag");
+
+            t.setIdCategoriaGeral(cursor.isNull(colGeral) ? null : cursor.getInt(colGeral));
+            t.setIdCategoriaPagamento(cursor.isNull(colPag) ? null : cursor.getInt(colPag));
+            t.setIdCategoriaFormaPagamento(cursor.isNull(colForma) ? null : cursor.getInt(colForma));
+
+            // Nomes das categorias
             t.setNomeCategoriaGeral(cursor.getString(cursor.getColumnIndexOrThrow("nome_categoriaGeral")));
             t.setNomeCategoriaPagamento(cursor.getString(cursor.getColumnIndexOrThrow("nome_categoriaPag")));
             t.setNomeCategoriaFormaPagamento(cursor.getString(cursor.getColumnIndexOrThrow("nome_categoriaFormaPag")));
 
-            Log.d("DEBUG", "CategoriaGeral: " + t.getNomeCategoriaGeral());
-            Log.d("DEBUG", "CategoriaPagamento: " + t.getNomeCategoriaPagamento());
-            Log.d("DEBUG", "CategoriaFormaPagamento: " + t.getNomeCategoriaFormaPagamento());
+            Log.d("DEBUG", "Geral: " + t.getNomeCategoriaGeral() + ", Pagamento: " + t.getNomeCategoriaPagamento() + ", Forma: " + t.getNomeCategoriaFormaPagamento());
+            Log.d("SQL_RESULT", "CGeral: " + cursor.getString(cursor.getColumnIndexOrThrow("nome_categoriaGeral")));
+            Log.d("SQL_RESULT", "CPag: " + cursor.getString(cursor.getColumnIndexOrThrow("nome_categoriaPag")));
+            Log.d("SQL_RESULT", "CForma: " + cursor.getString(cursor.getColumnIndexOrThrow("nome_categoriaFormaPag")));
+
             lista.add(t);
         }
-
 
         cursor.close();
         return lista;

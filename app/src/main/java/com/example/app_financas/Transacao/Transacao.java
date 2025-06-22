@@ -30,22 +30,22 @@ public class Transacao {
     public void setData(String data) { this.data = data; }
 
     public Integer getIdCategoriaGeral() { return idCategoriaGeral; }
-    public void setIdCategoriaGeral(Integer idCategoriaGeral) { this.idCategoriaGeral = idCategoriaGeral; }
+    public void setIdCategoriaGeral(Integer id) { this.idCategoriaGeral = id; }
 
     public Integer getIdCategoriaPagamento() { return idCategoriaPagamento; }
-    public void setIdCategoriaPagamento(Integer idCategoriaPagamento) { this.idCategoriaPagamento = idCategoriaPagamento; }
+    public void setIdCategoriaPagamento(Integer id) { this.idCategoriaPagamento = id; }
 
     public Integer getIdCategoriaFormaPagamento() { return idCategoriaFormaPagamento; }
-    public void setIdCategoriaFormaPagamento(Integer idCategoriaFormaPagamento) { this.idCategoriaFormaPagamento = idCategoriaFormaPagamento; }
+    public void setIdCategoriaFormaPagamento(Integer id) { this.idCategoriaFormaPagamento = id; }
 
     public String getNomeCategoriaGeral() {return nomeCategoriaGeral;}
-    public void setNomeCategoriaGeral(String nomeCategoriaGeral) {this.nomeCategoriaGeral = nomeCategoriaGeral;}
+    public void setNomeCategoriaGeral(String nome) {this.nomeCategoriaGeral = nome;}
 
     public String getNomeCategoriaPagamento() {return nomeCategoriaPagamento;}
-    public void setNomeCategoriaPagamento(String nomeCategoriaPagamento) {this.nomeCategoriaPagamento = nomeCategoriaPagamento;}
+    public void setNomeCategoriaPagamento(String nome) {this.nomeCategoriaPagamento = nome;}
 
     public String getNomeCategoriaFormaPagamento() {return nomeCategoriaFormaPagamento;}
-    public void setNomeCategoriaFormaPagamento(String nomeCategoriaFormaPagamento) {this.nomeCategoriaFormaPagamento = nomeCategoriaFormaPagamento;}
+    public void setNomeCategoriaFormaPagamento(String nome) {this.nomeCategoriaFormaPagamento = nome;}
 
 
 

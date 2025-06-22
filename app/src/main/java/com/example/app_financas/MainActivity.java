@@ -3,6 +3,8 @@ package com.example.app_financas;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.InputFilter;
+import android.text.Spanned;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -58,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.activity_main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
@@ -94,6 +96,9 @@ public class MainActivity extends AppCompatActivity {
         spinnerCategoriaGeral();
         spinnerCategoriaPagamento();
         spinnerCategoriaFormaPag();
+        updateLabel(); // Preenche a data com a data atual
+        dataTransacao.setFocusable(false);
+        dataTransacao.setClickable(true);// impedir o usuário de digitar manualmente a data (e forçar o uso do calendário)
     }
 
     public void CarregarPerfil(){
@@ -208,7 +213,14 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
 
-        double valor = Double.parseDouble(valorStr);
+        double valor;
+        //Se o usuário digitar um valor inválido (ex: letras), vai dar exceção.
+        try {
+            valor = Double.parseDouble(valorStr.replace(",", "."));
+        } catch (NumberFormatException e) {
+            Toast.makeText(this, "Digite um valor numérico válido!", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
         // Pegando IDs a partir dos nomes
         Integer idCatGeral = nomeCatGeral.equals("--") ? null : catgeralDAO.buscarIdPorNome(nomeCatGeral);
@@ -256,8 +268,8 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(this, "Erro ao salvar", Toast.LENGTH_SHORT).show();
         }
 
+        Log.d("CONFIRMA_IDs", "ID Geral: " + idCatGeral + ", ID Pag: " + idCatPag + ", ID Forma: " + idCatForma);
+
     }
-
-
 
 }
