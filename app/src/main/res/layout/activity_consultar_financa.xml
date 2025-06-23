@@ -83,6 +83,8 @@
                 android:hint="mm/dd/yyyy"
                 android:inputType="date"
                 android:padding="12dp"
+                android:textColor="@color/black"
+                app:backgroundTint="@null"
                 android:textSize="15dp" />
 
             <EditText
