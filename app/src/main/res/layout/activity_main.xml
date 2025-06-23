@@ -172,19 +172,37 @@
             android:background="@drawable/borda_arredondada"
             android:padding="10dp"/>
 
+        <LinearLayout
+            android:id="@+id/linearLayoutIconPigBank"
+            android:layout_width="0dp"
+            android:layout_height="110dp"
+            android:layout_marginTop="5dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toBottomOf="@id/spinnerCategoriaFormaPag"
+            app:layout_constraintStart_toStartOf="@id/guidelineStart"
+            app:layout_constraintEnd_toEndOf="@id/guidelineEnd">
+
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:background="@drawable/pig_bank"
+                android:backgroundTint="@null"/>
+        </LinearLayout>
+
         <!-- Botão Acessar-->
         <Button
             android:id="@+id/btnConfirmarTransacao"
             android:layout_width="300dp"
             android:layout_height="40dp"
-            android:layout_marginTop="88dp"
+            android:layout_marginTop="5dp"
             android:background="@drawable/botao_amarelo"
             app:backgroundTint="@null"
             android:textColor="@color/black"
             android:text="Confirmar"
             android:textSize="16sp"
             app:barrierDirection="bottom"
-            app:layout_constraintTop_toBottomOf="@id/spinnerCategoriaFormaPag"
+            app:layout_constraintTop_toBottomOf="@id/linearLayoutIconPigBank"
             app:layout_constraintStart_toStartOf="@id/guidelineStart"
             app:layout_constraintEnd_toEndOf="@id/guidelineEnd"/>
 

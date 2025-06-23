@@ -11,34 +11,52 @@
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintEnd_toEndOf="parent">
 
-    <Button
-        android:id="@+id/btnInicial"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:textSize="12dp"
-        android:textColor="@color/black"
-        android:onClick="telaInicio"
-        android:background="@drawable/botao_menu_inferior"
-        android:text="Inicio"/>
-    <Button
-        android:id="@+id/btnConsultar"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:onClick="telaConsultar"
-        android:textSize="12dp"
-        android:textColor="@color/black"
-        android:background="@drawable/botao_menu_inferior"
-        android:text="Consultar" />
-    <Button
-        android:id="@+id/btnConfigurar"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:onClick="telaConfigurar"
-        android:textSize="12dp"
-        android:textColor="@color/black"
-        android:background="@drawable/botao_menu_inferior"
-        android:text="Configurar" />
+    <LinearLayout
+        android:layout_width="120dp"
+        android:layout_height="40dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+        <Button
+            android:id="@+id/btnInicial"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            app:backgroundTint="@null"
+            android:background="@drawable/money_solid"
+            android:onClick="telaInicio"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="120dp"
+        android:layout_height="40dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btnConsultar"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:onClick="telaConsultar"
+            android:textSize="12dp"
+            android:background="@drawable/recibo_solid"
+            app:backgroundTint="@null"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="120dp"
+        android:layout_height="40dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btnConfigurar"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:onClick="telaConfigurar"
+            android:textSize="12dp"
+            android:textColor="@color/black"
+            android:background="@drawable/gears_solid"
+            app:backgroundTint="@null"/>
+
+    </LinearLayout>
+
 </LinearLayout>

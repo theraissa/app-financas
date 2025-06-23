@@ -20,6 +20,7 @@
 
     <!-- NAV MENU -->
     <color name="fundo_nav_menu">#FFC6C6</color>
+    <color name="cor_icons">#D91656</color>
 
     <!-- TELAS DE CADASTRAR - PERFIL E CATEGORIAS-->
     <color name="fundo_rosinha">#FCD8CD</color>
