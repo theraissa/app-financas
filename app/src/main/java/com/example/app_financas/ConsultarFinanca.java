@@ -11,6 +11,7 @@ import android.view.View;
 
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -49,6 +50,7 @@ public class ConsultarFinanca extends AppCompatActivity {
     CheckBox cbGasto, cbGanho;
     LinearLayout checkboxGroup;
     TextView somaTotal;
+    Button btnLimparFiltro;
     RecyclerView recyclerViewValores;
     private List<Transacao> listaTransacoes = new ArrayList<>();
     private TransacaoAdapter transacaoAdapter;
@@ -84,6 +86,9 @@ public class ConsultarFinanca extends AppCompatActivity {
         checkboxGroup = findViewById(R.id.linearLayoutTipo);
         somaTotal = findViewById(R.id.somaTotal);
         recyclerViewValores = findViewById(R.id.recyclerViewValores);
+
+        btnLimparFiltro = findViewById(R.id.buttonLimparFiltros);
+        btnLimparFiltro.setOnClickListener(v -> limparFiltros());
 
         transacaoDAO = new TransacaoDAO(this);
         catgeralDAO = new CatGeralDAO(this);
@@ -134,8 +139,6 @@ public class ConsultarFinanca extends AppCompatActivity {
             }
         }
 
-        configurarFiltros();
-
         // Desabilitar teclado, focar só no clique
         dataInicial.setInputType(InputType.TYPE_NULL);
         dataInicial.setFocusable(false);
@@ -145,14 +148,25 @@ public class ConsultarFinanca extends AppCompatActivity {
         dataInicial.setOnClickListener(v -> abrirDatePicker(dataInicial));
         dataFinal.setOnClickListener(v -> abrirDatePicker(dataFinal));
 
+        configurarFiltros();
+    }
+    public void telaConsultar(View v){
+        if (!this.getClass().equals(ConsultarFinanca.class)) {
+            Intent i = new Intent(this, ConsultarFinanca.class);
+            startActivity(i);
+        }
     }
     public void telaInicio(View v){
-        Intent i = new Intent(this, MainActivity.class);
-        startActivity(i);
+        if (!this.getClass().equals(MainActivity.class)) {
+            Intent i = new Intent(this, MainActivity.class);
+            startActivity(i);
+        }
     }
     public void telaConfigurar(View v){
-        Intent i = new Intent(this, Configurar.class);
-        startActivity(i);
+        if (!this.getClass().equals(Configurar.class)) {
+            Intent i = new Intent(this, Configurar.class);
+            startActivity(i);
+        }
     }
 
     private void abrirDatePicker(EditText editText) {
@@ -347,5 +361,27 @@ public class ConsultarFinanca extends AppCompatActivity {
                 carregarTransacoesFiltros();
             }
         });
+    }
+
+    private void limparFiltros() {
+        dataInicial.setText("");
+        dataFinal.setText("");
+        spnCatGeral.setSelection(0);
+        spnCatFormaPag.setSelection(0);
+        cbGasto.setChecked(false);
+        cbGanho.setChecked(false);
+
+        // Limpa os filtros armazenados
+        catGeralSelecionada = null;
+        catFormaPagSelecionada = null;
+        dataInicialStr = null;
+        dataFinalStr = null;
+
+        // Atualiza a lista com todas as transações
+        listaTransacoes.clear();
+        listaTransacoes.addAll(transacaoDAO.listar());
+        transacaoAdapter.notifyDataSetChanged();
+
+        atualizarSomaTotal();
     }
 }

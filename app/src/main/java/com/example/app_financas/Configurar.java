@@ -28,14 +28,23 @@ public class Configurar extends AppCompatActivity {
             return insets;
         });
     }
-
     public void telaConsultar(View v){
-        Intent i = new Intent(this, ConsultarFinanca.class);
-        startActivity(i);
+        if (!this.getClass().equals(ConsultarFinanca.class)) {
+            Intent i = new Intent(this, ConsultarFinanca.class);
+            startActivity(i);
+        }
     }
     public void telaInicio(View v){
-        Intent i = new Intent(this, MainActivity.class);
-        startActivity(i);
+        if (!this.getClass().equals(MainActivity.class)) {
+            Intent i = new Intent(this, MainActivity.class);
+            startActivity(i);
+        }
+    }
+    public void telaConfigurar(View v){
+        if (!this.getClass().equals(Configurar.class)) {
+            Intent i = new Intent(this, Configurar.class);
+            startActivity(i);
+        }
     }
     public void telaCadastrarPerfil(View v){
         Intent i = new Intent(this, CadastroPerfil.class);

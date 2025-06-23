@@ -10,6 +10,9 @@
     <color name="transparente">#00FFFFFF</color>
     <color name="amarelo_claro">#FFF6C5</color>
 
+    <!--BOTÃO LIMPAR FILTROS-->
+    <color name="btn_limpar_filtro">#79D7BE</color>
+
     <!--BOTÃO - TELA PRINCIPAL-->
     <color name="laranjinha_clique">#FFD586</color>
     <color name="btn_laranjinha">#FFD586</color>

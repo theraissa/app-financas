@@ -147,20 +147,39 @@
             app:layout_constraintStart_toStartOf="@id/guidelineStart"
             app:layout_constraintTop_toBottomOf="@id/linearLayoutTipo" />
 
-        <TextView
-            android:id="@+id/somaTotal"
+        <LinearLayout
+            android:id="@+id/linearLayoutSomaBtn"
             android:layout_width="0dp"
-            android:layout_height="25dp"
-            android:text="Soma Total: R$"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            android:textColor="@color/black"
-            app:backgroundTint="@null"
-            android:layout_margin="10dp"
-            app:layout_constraintBottom_toBottomOf="@+id/linearLayoutNavMenu"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="5dp"
             app:layout_constraintTop_toBottomOf="@id/recyclerViewValores"
             app:layout_constraintStart_toStartOf="@id/guidelineStart"
-            app:layout_constraintEnd_toEndOf="@id/guidelineEnd"/>
+            app:layout_constraintEnd_toEndOf="@id/guidelineEnd">>
+
+            <TextView
+                android:id="@+id/somaTotal"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Soma Total: R$"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                app:backgroundTint="@null"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"/>
+            <Button
+                android:id="@+id/buttonLimparFiltros"
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/btn_limpar_filtro"
+                app:backgroundTint="@null"
+                android:textColor="@color/black"
+                android:textSize="13dp"/>
+        </LinearLayout>
+
 
         <!-- Menu inferior -->
         <LinearLayout
@@ -170,7 +189,7 @@
             android:layout_marginTop="10dp"
             android:orientation="horizontal"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/somaTotal"
+            app:layout_constraintTop_toBottomOf="@id/linearLayoutSomaBtn"
             app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
             app:layout_constraintStart_toStartOf="@id/guidelineStart">
 
