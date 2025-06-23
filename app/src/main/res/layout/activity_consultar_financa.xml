@@ -46,6 +46,8 @@
                 android:layout_weight="1"
                 android:layout_height="40dp"
                 android:layout_marginRight="5dp"
+                android:textColor="@color/black"
+                app:backgroundTint="@null"
                 android:background="@drawable/borda_arredondada"
                 android:padding="10dp"/>
             <Spinner
@@ -53,6 +55,8 @@
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="40dp"
+                android:textColor="@color/black"
+                app:backgroundTint="@null"
                 android:background="@drawable/borda_arredondada"
                 android:padding="10dp"/>
         </LinearLayout>
@@ -63,6 +67,7 @@
             android:layout_height="45dp"
             android:orientation="horizontal"
             android:layout_marginTop="10dp"
+            android:textColor="@color/black"
             app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
             app:layout_constraintStart_toStartOf="@id/guidelineStart"
             app:layout_constraintTop_toBottomOf="@id/spinnerCategorias">
@@ -112,6 +117,8 @@
                 android:background="@drawable/botao_selecionado"
                 android:text="Gasto"
                 android:gravity="center"
+                android:textColor="@color/black"
+                app:backgroundTint="@null"
                 android:layout_marginRight="20dp"/>
 
             <CheckBox
@@ -120,6 +127,8 @@
                 android:layout_weight="1"
                 android:layout_height="40dp"
                 android:button="@null"
+                android:textColor="@color/black"
+                app:backgroundTint="@null"
                 android:background="@drawable/botao_selecionado"
                 android:text="Ganho"
                 android:gravity="center"/>
@@ -130,6 +139,8 @@
             android:layout_width="0dp"
             android:layout_height="400dp"
             android:layout_marginTop="8dp"
+            android:textColor="@color/black"
+            app:backgroundTint="@null"
             app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
             app:layout_constraintStart_toStartOf="@id/guidelineStart"
             app:layout_constraintTop_toBottomOf="@id/linearLayoutTipo" />
@@ -141,17 +152,22 @@
             android:text="Soma Total: R$"
             android:textSize="16sp"
             android:textStyle="bold"
+            android:textColor="@color/black"
+            app:backgroundTint="@null"
             android:layout_margin="10dp"
+            app:layout_constraintBottom_toBottomOf="@+id/linearLayoutNavMenu"
             app:layout_constraintTop_toBottomOf="@id/recyclerViewValores"
             app:layout_constraintStart_toStartOf="@id/guidelineStart"
             app:layout_constraintEnd_toEndOf="@id/guidelineEnd"/>
 
         <!-- Menu inferior -->
         <LinearLayout
-            android:layout_width="0dp"
+            android:id="@+id/linearLayoutNavMenu"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@id/somaTotal"
             app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
             app:layout_constraintStart_toStartOf="@id/guidelineStart">

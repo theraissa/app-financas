@@ -25,6 +25,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:layout_margin="10dp"
+            app:backgroundTint="@null"
             android:text="Informe o seu primeiro nome:"
             android:textSize="20dp"
             android:textColor="@color/black"
@@ -35,8 +36,10 @@
             android:layout_width="225dp"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
+            android:textColor="@color/black"
+            app:backgroundTint="@null"
             android:textSize="15sp"
-            android:hint="Digite Aqui"/>
+            android:text="Digite Aqui"/>
 
         <Button
             android:id="@+id/btnConfirmarPerfil"

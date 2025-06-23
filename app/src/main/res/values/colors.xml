@@ -31,7 +31,7 @@
 
     <!-- RECYCLER VIEW - CATEGORIA GERAL-->
     <color name="btn_editar">#FCEF91</color>
-    <color name="btn_excluir">#EA2F14</color>
+    <color name="btn_excluir">#FF0000</color>
     <color name="fundo_recycler_vier">#FFC6C6</color>
 
 </resources>

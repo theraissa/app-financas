@@ -13,7 +13,6 @@ public class Transacao {
     private String nomeCategoriaPagamento;
     private String nomeCategoriaFormaPagamento;
 
-    // Getters e setters
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
 

@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<shape xmlns:android="http://schemas.android.com/apk/res/android">
-    <solid android:color="@color/btn_excluir" />
-    <corners android:radius="10dp"/>
-</shape>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:drawable="@drawable/tema_btn_excluir"/>
+
+    <item
+        android:drawable="@drawable/icon_delete"
+        android:gravity="center"
+        android:width="23dp"
+        android:height="23dp" />
+</layer-list>

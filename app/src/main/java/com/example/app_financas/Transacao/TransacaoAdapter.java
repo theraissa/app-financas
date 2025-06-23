@@ -3,9 +3,12 @@ package com.example.app_financas.Transacao;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.app_financas.CategoriaPagamento.CatPag;
 import com.example.app_financas.R;
 
 import java.util.List;
@@ -17,19 +20,24 @@ public class TransacaoAdapter extends RecyclerView.Adapter<TransacaoAdapter.View
 
     public interface OnItemClickListener {
         void onItemClick(Transacao transacao);
+        void onExcluirClick(Transacao transacao);
+
     }
     public TransacaoAdapter(List<Transacao> transacaos, TransacaoAdapter.OnItemClickListener listener) {
         this.transacaos = transacaos;
         this.listener = listener;
     }
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView valor, desc, data, filtro;
+        TextView valor, desc, data, filtro;
+        Button btnExcluirTransacao;
+
         public ViewHolder(View itemView) {
             super(itemView);
             valor = itemView.findViewById(R.id.textViewItemValor);
             desc = itemView.findViewById(R.id.textViewItemDesc);
             data = itemView.findViewById(R.id.textViewItemData);
             filtro = itemView.findViewById(R.id.textViewItemFiltros);
+            btnExcluirTransacao = itemView.findViewById(R.id.buttonExcluirTransacao);
         }
         public void bind(Transacao transacao, TransacaoAdapter.OnItemClickListener listener) {
             valor.setText(String.format("R$ %.2f", transacao.getValor()));
@@ -52,6 +60,7 @@ public class TransacaoAdapter extends RecyclerView.Adapter<TransacaoAdapter.View
 
             filtro.setText(categoriasBuilder.toString());
             itemView.setOnClickListener(v -> listener.onItemClick(transacao));
+            btnExcluirTransacao.setOnClickListener(v -> listener.onExcluirClick(transacao));
         }
     }
     public void atualizarLista(List<Transacao> novaLista) {

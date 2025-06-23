@@ -1,10 +1,5 @@
 <resources>
     <string name="app_name">app-financas</string>
-    <string-array name="categorias">
-        <item>Alimentação</item>
-        <item>Transporte</item>
-        <item>Educação</item>
-        <item>Saúde</item>
-        <item>Outros</item>
-    </string-array>
+    <string name="desc_sobre_nos">Sou estudante do curso de Análise e Desenvolvimento de Sistemas no IFRS – Campus Rolante, atualmente no 5º semestre. Este aplicativo foi desenvolvido com fins educacionais.</string>
+
 </resources>

@@ -53,6 +53,10 @@ public class Configurar extends AppCompatActivity {
         Intent i = new Intent(this, CategoriaFormaPag.class);
         startActivity(i);
     }
+    public void telaSobreNos(View v){
+        Intent i = new Intent(this, SobreNos.class);
+        startActivity(i);
+    }
 
 
 }

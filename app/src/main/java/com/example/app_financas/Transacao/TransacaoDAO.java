@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 import com.example.app_financas.BancoHelper;
+import com.example.app_financas.CategoriaPagamento.CatPag;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,7 +37,9 @@ public class TransacaoDAO {
 
         return db.insert("Transacao", null, valores);
     }
-
+    public void excluir(int idTransacao) {
+        db.delete("Transacao", "id_transacao = ?", new String[]{String.valueOf(idTransacao)});
+    }
     public List<Transacao> buscarTransacoesComFiltros(String categoriaGeral, String categoriaFormaPag,
                                                       String dataInicio, String dataFim, List<String> tipos) {
         List<Transacao> lista = new ArrayList<>();

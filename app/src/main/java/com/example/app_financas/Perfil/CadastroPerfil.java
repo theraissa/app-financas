@@ -32,38 +32,46 @@ public class CadastroPerfil extends AppCompatActivity {
         nomePerfil = findViewById(R.id.editTextNomePerfil);
         perfilDAO = new PerfilDAO(this);
 
+        Perfil perfil = perfilDAO.selecionar();
+        if (perfil != null) {
+            nomePerfil.setText(perfil.getNome());
+        }
     }
 
     public void CadastrarPerfil(View v){
-        String nome = nomePerfil.getText().toString().trim(); // Remove espaços no início/fim
+        String nome = nomePerfil.getText().toString().trim();
 
         if (nome.isEmpty()) {
             Toast.makeText(this, "Por favor, insira um nome.", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        // Verifica se o nome contém espaços internos (ou seja, mais de uma palavra)
         if (nome.contains(" ")) {
             Toast.makeText(this, "Digite apenas o primeiro nome (sem espaços).", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        // Opcional: pode adicionar um limite de caracteres, se quiser
         if (nome.length() > 10) {
             Toast.makeText(this, "O nome deve ter no máximo 10 caracteres.", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        Perfil perfil = new Perfil(nome);
-        perfilDAO.remover();
-        long id = perfilDAO.inserir(perfil);
-        Toast.makeText(this, "Usuário cadastrado", Toast.LENGTH_SHORT).show();
+        Perfil perfilExistente = perfilDAO.selecionar();
+
+        if (perfilExistente != null) {
+            // Atualiza o nome do perfil existente
+            perfilExistente.setNome(nome);
+            perfilDAO.atualizar(perfilExistente);
+            Toast.makeText(this, "Perfil atualizado com sucesso!", Toast.LENGTH_SHORT).show();
+        } else {
+            // Cria um novo perfil
+            Perfil novoPerfil = new Perfil(nome);
+            perfilDAO.inserir(novoPerfil);
+            Toast.makeText(this, "Perfil cadastrado com sucesso!", Toast.LENGTH_SHORT).show();
+        }
+
         nomePerfil.setText("");
-
-        // Trocar de tela
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
-
+        startActivity(new Intent(this, MainActivity.class));
     }
 
 

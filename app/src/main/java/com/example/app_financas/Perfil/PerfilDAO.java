@@ -30,9 +30,8 @@ public class PerfilDAO {
             return 0;
         }
     }
-    public void remover(){
-        Cursor cursor = db.rawQuery("DELETE FROM Perfil WHERE id = 0", null);
-
+    public void remover() {
+        db.delete("Perfil", null, null); // remove todos
     }
     public Perfil selecionar() {
         Perfil perfil = null;
@@ -45,6 +44,14 @@ public class PerfilDAO {
         }
         return perfil;
     }
+
+    public void atualizar(Perfil perfil) {
+        ContentValues values = new ContentValues();
+        values.put("nome", perfil.getNome());
+
+        db.update("Perfil", values, "id = ?", new String[]{String.valueOf(perfil.getId())});
+    }
+
     public List<Perfil> listar() {
         List<Perfil> usuarios = new ArrayList<>();
         Cursor cursor = db.rawQuery("SELECT * FROM Perfil", null);

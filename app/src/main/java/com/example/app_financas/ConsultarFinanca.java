@@ -1,5 +1,6 @@
 package com.example.app_financas;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -90,7 +91,24 @@ public class ConsultarFinanca extends AppCompatActivity {
         catformapagDAO = new CatFormaPagDAO(this);
 
         listaTransacoes = transacaoDAO.listar(); // use diretamente a lista preenchida
-        transacaoAdapter = new TransacaoAdapter(listaTransacoes, transacao -> {
+        transacaoAdapter = new TransacaoAdapter(listaTransacoes, new TransacaoAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(Transacao transacao) {
+            }
+            @Override
+            public void onExcluirClick(Transacao transacao){
+                new AlertDialog.Builder(ConsultarFinanca.this)
+                        .setTitle("Excluir Transação")
+                        .setMessage("Tem certeza que deseja excluir esta transação?")
+                        .setPositiveButton("Sim", (dialog, which) -> {
+                            transacaoDAO.excluir(transacao.getId());
+                            carregarTransacoesFiltros();
+                            Toast.makeText(ConsultarFinanca.this, "Transação excluída!", Toast.LENGTH_SHORT).show();
+                        })
+                        .setNegativeButton("Cancelar", null)
+                        .show();
+            }
+
         });
 
         recyclerViewValores.setLayoutManager(new LinearLayoutManager(this));
